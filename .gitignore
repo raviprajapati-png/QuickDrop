@@ -1,0 +1,12 @@
+# Virtual Environments
+myenv/
+venv/
+*.pyc
+__pycache__/
+
+# Local database and media from main project
+*.sqlite3
+*.log
+*.png
+*.jpg
+*.csv

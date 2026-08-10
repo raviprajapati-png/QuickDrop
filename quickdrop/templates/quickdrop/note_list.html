@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Active Notes - QuickDrop</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}"></head>
+<body>
+    <div class="container">
+        <header>
+            <h1>QuickDrop ⏳</h1>
+            <div>
+                <span style="font-size: 0.85rem; color: var(--text-muted); margin-right: 8px;">Syncing in <strong id="timer">60</strong>s</span>
+                <a href="{% url 'add_note' %}" class="btn">+ Create Note</a>
+            </div>
+        </header>
+
+        <section>
+            {% for note in notes %}
+                <article class="note-item">
+                    <h3>{{ note.title }}</h3>
+                    <p style="margin-top: 0.5rem; color: #334155;">{{ note.content }}</p>
+                    <span class="note-meta">Expires: {{ note.expires_at|date:"H:i:s" }} UTC</span>
+                </article>
+            {% empty %}
+                <div class="card" style="text-align: center; color: var(--text-muted);">
+                    <p>No active notes right now.</p>
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+
+    <script>
+        let timeLeft = 60;
+        setInterval(function() {
+            timeLeft--;
+            document.getElementById('timer').textContent = timeLeft;
+            if (timeLeft <= 0) window.location.reload();
+        }, 1000);
+    </script>
+</body>
+</html>

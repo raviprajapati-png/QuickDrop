@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Note - QuickDrop</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        .time-inputs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+        .time-inputs p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Create Note 📝</h1>
+            <a href="{% url 'note_list' %}" class="btn btn-secondary">← Back to List</a>
+        </header>
+
+        <section class="card">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- Title Field -->
+                <p>
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {{ form.title }}
+                </p>
+
+                <!-- Content Field -->
+                <p>
+                    <label for="{{ form.content.id_for_label }}">Content</label>
+                    {{ form.content }}
+                </p>
+
+                <!-- Duration Section -->
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 0.5rem;">
+                    Expiration Time
+                </label>
+                
+                <div class="time-inputs">
+                    <p>
+                        <label for="{{ form.days.id_for_label }}">Days</label>
+                        {{ form.days }}
+                    </p>
+                    <p>
+                        <label for="{{ form.hours.id_for_label }}">Hours</label>
+                        {{ form.hours }}
+                    </p>
+                    <p>
+                        <label for="{{ form.minutes.id_for_label }}">Minutes</label>
+                        {{ form.minutes }}
+                    </p>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Save Note</button>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
